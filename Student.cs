@@ -10,6 +10,7 @@ namespace WindowsFormsApp1
     {
         public int studentId { set; get; }
         public string studentName { set; get; }
+        //test
     }
 
 }
