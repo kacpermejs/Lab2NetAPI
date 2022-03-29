@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
             string response = await client.GetStringAsync(url);
             Weather.root weather = JsonConvert.DeserializeObject<Weather.root>(response);
             Console.WriteLine(weather.main.temp);
-
+            Console.WriteLine(weather.sys);
         }
 
 
@@ -72,6 +72,7 @@ namespace WindowsFormsApp1
             public double speed { get; set; }
             public double deg { get; set; }
             public double gust { get; set; }
+
         }
         public class clouds
         {
@@ -79,11 +80,28 @@ namespace WindowsFormsApp1
 
         }
 
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dateTime ;
+        }
+
         public class sys
         {
             public long sunrise { get; set; }
             public long sunset { get; set; }
+
+            public override string ToString()
+
+            {
+                DateTime rise = UnixTimeStampToDateTime(sunrise);
+                DateTime set = UnixTimeStampToDateTime(sunset);
+                return  rise.TimeOfDay + " " + set.TimeOfDay;
+            }
         }
+        
 
         public class root
         {
@@ -99,7 +117,7 @@ namespace WindowsFormsApp1
             public string name { get; set; }
             public int cod { get; set; }
 
-
+          
         }
 
 

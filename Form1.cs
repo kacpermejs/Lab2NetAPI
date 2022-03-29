@@ -17,10 +17,13 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        Weather w = new Weather();  
+        Weather w = new Weather();
+        string city;
         public Form1()
         {
             InitializeComponent();
+            button1.Enabled = false;
+            buttonGo.Enabled = false;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -47,8 +50,9 @@ namespace WindowsFormsApp1
 
             */
             getWeather();
-            w.getLocation("Wroclaw");
-          
+            w.getLocation(city);
+            buttonGo.Enabled = true;
+            
 
 
         }
@@ -60,7 +64,7 @@ namespace WindowsFormsApp1
             students = JsonConvert.DeserializeObject<List<Student>>(response);
             textBox1.Text = "Finished";
             foreach (var s in students)
-                listBox1.Items.Add(s.ToString());
+                bigEkran.Items.Add(s.ToString());
         }
         string APIkey = "b4330f2b107a8cfbff56d85ec0b1ea03";
         async void getWeather()
@@ -69,19 +73,30 @@ namespace WindowsFormsApp1
             string call = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + APIkey;
             string json = await client.GetStringAsync(call);
             WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
-            listBox1.Items.Add("Temperature: " + (Info.main.temp - 272.15) + " Pressure: " + Info.main.pressure);
+            bigEkran.Items.Add("Temperature: " + (Info.main.temp - 272.15) + " Pressure: " + Info.main.pressure);
 
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                button1.Enabled = false;
+                buttonGo.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled = true;
+                city = textBox1.Text;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             w.getWeather();
+            textBox1.Clear();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
