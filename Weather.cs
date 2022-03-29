@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
+
+
 
 namespace WindowsFormsApp1
 {
-    class WeatherInfo
+    
+
+    
+
+
+    public class WeatherInfo
     {
+
         public class coord
         {
             public double lon { get; set; }
@@ -68,7 +78,18 @@ namespace WindowsFormsApp1
 
 
         }
-
         
     }
+
+
+
+    
+
+    
+
+
+
 }
+
+
+
