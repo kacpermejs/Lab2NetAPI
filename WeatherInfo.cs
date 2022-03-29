@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 namespace WindowsFormsApp1
 {
-    internal class Weather
+    class WeatherInfo
     {
 
         HttpClient client = new HttpClient();
@@ -23,17 +23,6 @@ namespace WindowsFormsApp1
 
 
         }
-        public async void getWeather()
-        {
-            string url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location[0].lat + "&lon=" + location[0].lon + "&units=metric" + "&appid=ea8898ceaf85ba0d50355fd8abae9a91";
-            Console.WriteLine(url);
-            string response = await client.GetStringAsync(url);
-            Weather.root weather = JsonConvert.DeserializeObject<Weather.root>(response);
-            Console.WriteLine(weather.main.temp);
-
-        }
-
-
 
         public class City
         {
@@ -46,6 +35,11 @@ namespace WindowsFormsApp1
             {
                 return name + " " + lat + " " + lon;
             }
+        }
+        public class coord
+        {
+            public double lon { get; set; }
+            public double lat { get; set; }
         }
 
         public class weather
@@ -87,6 +81,7 @@ namespace WindowsFormsApp1
 
         public class root
         {
+            public coord coord { get; set; }
             public List<weather> weather { get; set; }
             public main main { get; set; }
             public long visibility { get; set; }
@@ -102,6 +97,6 @@ namespace WindowsFormsApp1
 
         }
 
-
+        
     }
 }

@@ -17,6 +17,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        Weather w = new Weather();  
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +47,8 @@ namespace WindowsFormsApp1
 
             */
             getWeather();
-
+            w.getLocation("Wroclaw");
+          
 
 
         }
@@ -73,6 +75,16 @@ namespace WindowsFormsApp1
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            w.getWeather();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
