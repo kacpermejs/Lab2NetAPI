@@ -30,13 +30,13 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
 
-
+            /*
             //string call = "http://radoslaw.idzikowski.staff.iiar.pwr.wroc.pl/instruction/students.json";
             string call = "https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=b4330f2b107a8cfbff56d85ec0b1ea03";
             HttpClient client = new HttpClient();
             List<Student> students = new List<Student>();
             ReadStudentsJson(client, call, students);
-            
+            */
 
             /*
             var json = File.ReadAllText(@"C:\Users\kacpe\source\repos\WindowsFormsApp1\students.json");
@@ -45,6 +45,10 @@ namespace WindowsFormsApp1
                 listBox1.Items.Add(s.ToString());
 
             */
+            getWeather();
+
+
+
         }
 
         async void ReadStudentsJson(HttpClient client, string call, List<Student> students)
@@ -55,6 +59,17 @@ namespace WindowsFormsApp1
             textBox1.Text = "Finished";
             foreach (var s in students)
                 listBox1.Items.Add(s.ToString());
+        }
+        string APIkey = "b4330f2b107a8cfbff56d85ec0b1ea03";
+        async void getWeather()
+        {
+            HttpClient client = new HttpClient();
+            string call = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + APIkey;
+            string json = await client.GetStringAsync(call);
+            WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
+            listBox1.Items.Add("Temperature: " + (Info.main.temp - 272.15) + " Pressure: " + Info.main.pressure);
+
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -82,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="students.json" />
+    <None Include="weather.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
