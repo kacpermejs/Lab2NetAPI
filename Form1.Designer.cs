@@ -28,59 +28,102 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.searchButton = new System.Windows.Forms.Button();
             this.bigEkran = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonGo = new System.Windows.Forms.Button();
+            this.cityNameBox = new System.Windows.Forms.TextBox();
+            this.showCities = new System.Windows.Forms.ListBox();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.showWeather = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // searchButton
             // 
-            this.button1.Location = new System.Drawing.Point(653, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.searchButton.Location = new System.Drawing.Point(503, 75);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(2);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(56, 19);
+            this.searchButton.TabIndex = 1;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // bigEkran
             // 
             this.bigEkran.FormattingEnabled = true;
-            this.bigEkran.ItemHeight = 16;
-            this.bigEkran.Location = new System.Drawing.Point(23, 12);
+            this.bigEkran.Location = new System.Drawing.Point(17, 10);
+            this.bigEkran.Margin = new System.Windows.Forms.Padding(2);
             this.bigEkran.Name = "bigEkran";
-            this.bigEkran.Size = new System.Drawing.Size(441, 404);
+            this.bigEkran.Size = new System.Drawing.Size(156, 329);
             this.bigEkran.TabIndex = 2;
             this.bigEkran.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // textBox1
+            // cityNameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(484, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 22);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.cityNameBox.Location = new System.Drawing.Point(468, 51);
+            this.cityNameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.cityNameBox.Name = "cityNameBox";
+            this.cityNameBox.Size = new System.Drawing.Size(120, 20);
+            this.cityNameBox.TabIndex = 3;
+            this.cityNameBox.UseWaitCursor = true;
+            this.cityNameBox.TextChanged += new System.EventHandler(this.cityNameBox_TextChanged);
             // 
-            // buttonGo
+            // showCities
             // 
-            this.buttonGo.Location = new System.Drawing.Point(653, 66);
-            this.buttonGo.Name = "buttonGo";
-            this.buttonGo.Size = new System.Drawing.Size(75, 23);
-            this.buttonGo.TabIndex = 4;
-            this.buttonGo.Text = "Go";
-            this.buttonGo.UseVisualStyleBackColor = true;
-            this.buttonGo.Click += new System.EventHandler(this.button2_Click);
+            this.showCities.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.showCities.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.showCities.Location = new System.Drawing.Point(469, 133);
+            this.showCities.Name = "showCities";
+            this.showCities.Size = new System.Drawing.Size(120, 169);
+            this.showCities.TabIndex = 5;
+            this.showCities.UseTabStops = false;
+            this.showCities.Click += new System.EventHandler(this.showCities_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(468, 334);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(55, 20);
+            this.buttonAdd.TabIndex = 7;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(534, 334);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(55, 20);
+            this.buttonRemove.TabIndex = 8;
+            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // showWeather
+            // 
+            this.showWeather.AutoSize = true;
+            this.showWeather.Location = new System.Drawing.Point(279, 81);
+            this.showWeather.Name = "showWeather";
+            this.showWeather.Size = new System.Drawing.Size(35, 13);
+            this.showWeather.TabIndex = 9;
+            this.showWeather.Text = "label1";
+            this.showWeather.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonGo);
-            this.Controls.Add(this.textBox1);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.showWeather);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.showCities);
+            this.Controls.Add(this.cityNameBox);
             this.Controls.Add(this.bigEkran);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.searchButton);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -90,10 +133,13 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.ListBox bigEkran;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonGo;
+        private System.Windows.Forms.TextBox cityNameBox;
+        private System.Windows.Forms.ListBox showCities;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Label showWeather;
     }
 }
 

@@ -1,48 +1,41 @@
 {
   "coord": {
-    "lon": 0,
-    "lat": 0
+    "lon": 16.9782,
+    "lat": 51.1263
   },
-  "weather": 
-  [
+  "weather": [
     {
-      "id": 801,
+      "id": 803,
       "main": "Clouds",
-      "description": "few clouds",
-      "icon": "02n"
+      "description": "broken clouds",
+      "icon": "04n"
     }
   ],
   "base": "stations",
-  "main": 
-  {
-    "temp": 301.41,
-    "feels_like": 305.25,
-    "temp_min": 301.41,
-    "temp_max": 301.41,
-    "pressure": 1010,
-    "humidity": 76,
-    "sea_level": 1010,
-    "grnd_level": 1010
+  "main": {
+    "temp": 4.11,
+    "feels_like": 0.41,
+    "temp_min": 2.84,
+    "temp_max": 5.01,
+    "pressure": 1004,
+    "humidity": 83
   },
-  "visibility": 10000,
-  "wind": 
-  {
-    "speed": 4.79,
-    "deg": 172,
-    "gust": 4.9
+  "visibility": 7000,
+  "wind": {
+    "speed": 4.63,
+    "deg": 70
   },
-  "clouds": {
-    "all": 19
-
+  "clouds": { "all": 75 },
+  "dt": 1648748889,
+  "sys": {
+    "type": 2,
+    "id": 2018700,
+    "country": "PL",
+    "sunrise": 1648701020,
+    "sunset": 1648747319
   },
-  "dt": 1647976667,
-  "sys":
-  {
-    "sunrise": 1647929014,
-    "sunset": 1647972612
-  },
-  "timezone": 0,
-  "id": 6295630,
-  "name": "Globe",
+  "timezone": 7200,
+  "id": 3081368,
+  "name": "Wroc³aw",
   "cod": 200
 }

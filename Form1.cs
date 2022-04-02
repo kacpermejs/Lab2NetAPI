@@ -10,8 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http;
-
-
+using System.Threading;
+using Timer = System.Windows.Forms.Timer;
 
 namespace WindowsFormsApp1
 {
@@ -22,47 +22,31 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            button1.Enabled = false;
-            buttonGo.Enabled = false;
+            //button1.Enabled = false;
+            //buttonGo.Enabled = false;
         }
+        
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
-
-            /*
-            //string call = "http://radoslaw.idzikowski.staff.iiar.pwr.wroc.pl/instruction/students.json";
-            string call = "https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=b4330f2b107a8cfbff56d85ec0b1ea03";
-            HttpClient client = new HttpClient();
-            List<Student> students = new List<Student>();
-            ReadStudentsJson(client, call, students);
-            */
-
-            /*
-            var json = File.ReadAllText(@"C:\Users\kacpe\source\repos\WindowsFormsApp1\students.json");
-            List<Student> students = JsonConvert.DeserializeObject<List<Student>>(json);
-            foreach (var s in students)
-                listBox1.Items.Add(s.ToString());
-
-            */
             getWeather();
-            w.getLocation(city);
-            buttonGo.Enabled = true;
-            
-
+            w.getLocation(cityNameBox.Text);
+            Console.WriteLine(cityNameBox.Text + Environment.NewLine); 
+            //buttonGo.Enabled = true;
 
         }
 
         async void ReadStudentsJson(HttpClient client, string call, List<Student> students)
         {
             string response = await client.GetStringAsync(call);
-            textBox1.Text = "Working";
+            cityNameBox.Text = "Working";
             students = JsonConvert.DeserializeObject<List<Student>>(response);
-            textBox1.Text = "Finished";
+            cityNameBox.Text = "Finished";
             foreach (var s in students)
                 bigEkran.Items.Add(s.ToString());
         }
@@ -78,28 +62,84 @@ namespace WindowsFormsApp1
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void cityNameBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBox1.Text))
+           
+            if (string.IsNullOrWhiteSpace(cityNameBox.Text))
             {
-                button1.Enabled = false;
-                buttonGo.Enabled = false;
+               // button1.Enabled = false;
+                //buttonGo.Enabled = false;
             }
             else
             {
-                button1.Enabled = true;
-                city = textBox1.Text;
+                searchButton.Enabled = true;
+                //city = textBox1.Text;
             }
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             w.getWeather();
-            textBox1.Clear();
+            cityNameBox.Clear();
             
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+            /*Timer timer = new Timer();
+            timer.Interval = (5 * 1000); // 10 secs
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();*/
+        }
+
+        private void showWeather_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            w.addToList();
+            showItems();
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            if (showCities.SelectedItems.Count > 0)
+                w.l.RemoveAt(showCities.SelectedIndex);
+            else
+                Console.WriteLine("ERRROR");
+            showItems();
+        }
+
+        private void showItems()
+        {
+            showCities.Items.Clear();
+            if (w.l.Count > 0)
+            {
+                foreach (var s in w.l)
+                {
+                    showCities.Items.Add(s.name);
+                }
+            }
+        }
+
+        private void showCities_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(showCities.SelectedIndex);
+            showWeatherInBox(showCities.SelectedIndex);
+
+        }
+        void showWeatherInBox(int whichItem)
+        {
+            //showWeather.();
+            //showWeather.Text = w.l[whichItem].main.temp;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

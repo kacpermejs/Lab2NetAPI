@@ -1,14 +1,20 @@
 [
   {
-    "studentId": 1,
-    "studentName": "Adam"
-  },
-  {
-    "studentId": 2,
-    "studentName": "Bartek"
-  },
-  {
-    "studentId": 3,
-    "studentName": "Czarek"
+    "name": "Wroc³aw",
+    "local_names": {
+      "lv": "Vroclava",
+      "pl": "Wroc³aw",
+      "lt": "Vroclavas",
+      "pt": "Breslávia",
+      "cs": "Vratislav",
+      "de": "Breslau",
+      "es": "Breslavia",
+      "la": "Wratislavia",
+      "ru": "???????"
+    },
+    "lat": 51.1263106,
+    "lon": 16.97819633051261,
+    "country": "PL",
+    "state": "Lower Silesian Voivodeship"
   }
 ]
