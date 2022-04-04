@@ -15,11 +15,11 @@ using System.Data.Entity;
 
 namespace WeatherWindowApp
 {
-    public partial class Form1 : Form
+    public partial class WeatherWindow : Form
     {
         Weather weather = new Weather();
         string imieINazwisko= $"Kacper Mejsner [nrindexu]\nPiotr Markiewicz 252940";
-        public Form1()
+        public WeatherWindow()
         {
             InitializeComponent();
             weather.context.Weathers.Load();
@@ -125,6 +125,13 @@ namespace WeatherWindowApp
                 updateWeather();
                 showItems();
             }
+        }
+
+
+
+        private void weatherIcon_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WeatherWindowApp
 {
-    partial class Form1
+    partial class WeatherWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -132,7 +132,7 @@
             this.labelName.TabIndex = 12;
             this.labelName.Text = "labelText";
             // 
-            // Form1
+            // WeatherWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -149,8 +149,8 @@
             this.Controls.Add(this.cityNameBox);
             this.Controls.Add(this.searchButton);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "WeatherWindow";
+            this.Text = "WeatherWindow";
             ((System.ComponentModel.ISupportInitialize)(this.weatherIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
