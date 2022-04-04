@@ -21,7 +21,7 @@ namespace WeatherWindowApp
 
         public async void getLocationAndWeather(string cityName)
         {
-            string url = "http://api.openweathermap.org/geo/1.0/direct?q=" + "Wrocław" + "&limit=1&appid=ea8898ceaf85ba0d50355fd8abae9a91";
+            string url = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=ea8898ceaf85ba0d50355fd8abae9a91";
             string response = await client.GetStringAsync(url);
             location = JsonConvert.DeserializeObject<List<root>>(response);
             if (response != "[]")
