@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
-namespace WindowsFormsApp1
+
+namespace WeatherWindowApp
 {
     class WeatherInfo
     {
@@ -96,6 +97,7 @@ namespace WindowsFormsApp1
 
 
         }
+
 
         
     }

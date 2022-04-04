@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApp1
+namespace WeatherWindowApp
 {
 
 
     public class WeatherDB : DbContext
     {
-        public DbSet<Weather.root> Weathers { get; set; }
+        public DbSet<Weather.DataBaseWeather> Weathers { get; set; }
+
     }
 }

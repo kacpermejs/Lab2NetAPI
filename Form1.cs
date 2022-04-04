@@ -11,68 +11,31 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading;
-using Timer = System.Windows.Forms.Timer;
-using System.Drawing.Imaging;
+using System.Data.Entity;
 
-namespace WindowsFormsApp1
+namespace WeatherWindowApp
 {
     public partial class Form1 : Form
     {
-        Weather w = new Weather();
-        string city;
+        Weather weather = new Weather();
+        string imieINazwisko= $"Kacper Mejsner [nrindexu]\nPiotr Markiewicz 252940";
         public Form1()
         {
             InitializeComponent();
+            weather.context.Weathers.Load();
+            showItems();
+            labelName.Text = imieINazwisko;
             //button1.Enabled = false;
             //buttonGo.Enabled = false;
         }
         
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void searchButton_Click(object sender, EventArgs e)
         {
-            getWeather();
-            w.getLocationAndWeather(cityNameBox.Text);
-            Console.WriteLine(cityNameBox.Text + Environment.NewLine);
-
-
-            //Image image = Image.FromFile("C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png");
-            //this.weatherIcon.Image = image;// new Bitmap("C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png");
-           
-
-            //weatherIcon.Load();
-            //weatherIcon.Height = image.Height;
-            //weatherIcon.Width = image.Width;
-            //this.weatherIcon.Image =; //new Bitmap("/Resources/300Logo.png");
-
-            //buttonGo.Enabled = true;
-
+            weather.getLocationAndWeather(cityNameBox.Text);
+            //Console.WriteLine(cityNameBox.Text + Environment.NewLine);
         }
 
-        async void ReadStudentsJson(HttpClient client, string call, List<Student> students)
-        {
-            string response = await client.GetStringAsync(call);
-            cityNameBox.Text = "Working";
-            students = JsonConvert.DeserializeObject<List<Student>>(response);
-            cityNameBox.Text = "Finished";
-            foreach (var s in students)
-                bigEkran.Items.Add(s.ToString());
-        }
-        string APIkey = "b4330f2b107a8cfbff56d85ec0b1ea03";
-        async void getWeather()
-        {
-            HttpClient client = new HttpClient();
-            string call = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + APIkey;
-            string json = await client.GetStringAsync(call);
-            WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
-            bigEkran.Items.Add("Temperature: " + (Info.main.temp - 272.15) + " Pressure: " + Info.main.pressure);
-
-
-        }
 
         private void cityNameBox_TextChanged(object sender, EventArgs e)
         {
@@ -90,75 +53,78 @@ namespace WindowsFormsApp1
            
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            cityNameBox.Clear();
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void showWeather_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            w.addToList();
+            weather.addToList();
             showItems();
-            
 
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (showCities.SelectedItems.Count > 0)
-                w.l.RemoveAt(showCities.SelectedIndex);
-            else
-                Console.WriteLine("ERRROR");
+            var w = weather.context.Weathers.Find(showCities.SelectedIndex+1);
+            weather.context.Weathers.Remove(w);
+            weather.context.SaveChanges();
             showItems();
         }
 
         private void showItems()
         {
             showCities.Items.Clear();
-            if (w.l.Count > 0)
+
+            if (weather.context.Weathers.Local.Count > 0)
             {
-                foreach (var s in w.l)
+                foreach (var w in weather.context.Weathers)
                 {
-                    showCities.Items.Add(s.name);
+                    showCities.Items.Add(w.name);
                 }
+            }
+        }
+        private void updateWeather()
+        {
+            if (showCities.SelectedIndex >= 0)
+            {
+                showWeather.Text = weather.context.Weathers.Local[showCities.SelectedIndex].ToString();
+                this.weatherIcon.ImageLocation = "http://openweathermap.org/img/wn/" + weather.context.Weathers.Local[showCities.SelectedIndex].weatherForDatabase.icon + "@2x.png";
+                this.weatherIcon.Load();
             }
         }
 
         private void showCities_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(showCities.SelectedIndex);
-            showWeatherInBox(showCities.SelectedIndex);
-            
-
+            Console.WriteLine(weather.context.Weathers.Local[0].Id);
+            if (showCities.SelectedIndex >=0 )
+            {
+                updateWeather();
+            }
         }
-        void showWeatherInBox(int whichItem)
+
+        private async void label1_Click(object sender, EventArgs e)
         {
-            //showWeather.();
-            //showWeather.Text = w.l[whichItem].main.temp;
+            if (showCities.SelectedIndex > -1)
+            {
+                HttpClient client = new HttpClient();
+                Weather.DataBaseWeather weatherr;
+                Weather.root root;
+
+                var w = weather.context.Weathers.Find(showCities.SelectedIndex + 1);
+
+                string url = "https://api.openweathermap.org/data/2.5/weather?lat=" + w.coord.lat + "&lon=" + w.coord.lon + "&units=metric" + "&appid=ea8898ceaf85ba0d50355fd8abae9a91";
+                string response = await client.GetStringAsync(url);
+                weatherr = JsonConvert.DeserializeObject<Weather.DataBaseWeather>(response);
+                root = JsonConvert.DeserializeObject<Weather.root>(response);
+                weatherr.weatherForDatabase = root.weather[0];
+
+                w.clouds = weatherr.clouds;
+                w.sys = weatherr.sys;
+                w.main = weatherr.main;
+                w.weatherForDatabase = weatherr.weatherForDatabase;
+                w.dt = weatherr.dt;
+
+                weather.context.SaveChanges();
+                updateWeather();
+                showItems();
+            }
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            showWeather.Text = w.l[0].ToString();
-            this.weatherIcon.ImageLocation = "http://openweathermap.org/img/wn/" + w.l[0].weather[0].icon + "@2x.png";//"C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png";
-            this.weatherIcon.Load();
-        }
-
-        private void weatherIcon_Click(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace WeatherWindowApp
 {
     partial class Form1
     {
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.searchButton = new System.Windows.Forms.Button();
-            this.bigEkran = new System.Windows.Forms.ListBox();
             this.cityNameBox = new System.Windows.Forms.TextBox();
             this.showCities = new System.Windows.Forms.ListBox();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -37,6 +36,7 @@
             this.showWeather = new System.Windows.Forms.Label();
             this.weatherIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.weatherIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,16 +50,6 @@
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
-            // bigEkran
-            // 
-            this.bigEkran.FormattingEnabled = true;
-            this.bigEkran.Location = new System.Drawing.Point(55, 22);
-            this.bigEkran.Margin = new System.Windows.Forms.Padding(2);
-            this.bigEkran.Name = "bigEkran";
-            this.bigEkran.Size = new System.Drawing.Size(153, 56);
-            this.bigEkran.TabIndex = 2;
-            this.bigEkran.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // cityNameBox
             // 
@@ -105,16 +95,16 @@
             // showWeather
             // 
             this.showWeather.AutoSize = true;
-            this.showWeather.Location = new System.Drawing.Point(468, 158);
+            this.showWeather.Location = new System.Drawing.Point(424, 139);
             this.showWeather.Name = "showWeather";
-            this.showWeather.Size = new System.Drawing.Size(35, 13);
+            this.showWeather.Size = new System.Drawing.Size(0, 13);
             this.showWeather.TabIndex = 9;
-            this.showWeather.Text = "label1";
             this.showWeather.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.showWeather.Click += new System.EventHandler(this.label1_Click);
             // 
             // weatherIcon
             // 
+            this.weatherIcon.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.weatherIcon.ImageLocation = "";
             this.weatherIcon.Location = new System.Drawing.Point(507, 22);
             this.weatherIcon.Name = "weatherIcon";
@@ -122,7 +112,6 @@
             this.weatherIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.weatherIcon.TabIndex = 10;
             this.weatherIcon.TabStop = false;
-            this.weatherIcon.Click += new System.EventHandler(this.weatherIcon_Click);
             // 
             // label1
             // 
@@ -134,6 +123,15 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "List of cities:";
             // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(55, 22);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(50, 13);
+            this.labelName.TabIndex = 12;
+            this.labelName.Text = "labelText";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +139,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(634, 411);
+            this.Controls.Add(this.labelName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.weatherIcon);
             this.Controls.Add(this.showWeather);
@@ -148,12 +147,10 @@
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.showCities);
             this.Controls.Add(this.cityNameBox);
-            this.Controls.Add(this.bigEkran);
             this.Controls.Add(this.searchButton);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.weatherIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -162,7 +159,6 @@
 
         #endregion
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.ListBox bigEkran;
         private System.Windows.Forms.TextBox cityNameBox;
         private System.Windows.Forms.ListBox showCities;
         private System.Windows.Forms.Button buttonAdd;
@@ -170,6 +166,7 @@
         private System.Windows.Forms.Label showWeather;
         private System.Windows.Forms.PictureBox weatherIcon;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelName;
     }
 }
 
