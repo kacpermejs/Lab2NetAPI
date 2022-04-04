@@ -14,9 +14,10 @@ namespace WindowsFormsApp1
         HttpClient client = new HttpClient();
         List<root> location;
         public List<root> l = new List<root>();
+        root w;
         int nr = 0;  
 
-        public async void getLocation(string city)
+        public async void getLocationAndWeather(string city)
         {
             string url = "http://api.openweathermap.org/geo/1.0/direct?q=" + "Wrocław" + "&limit=1&appid=ea8898ceaf85ba0d50355fd8abae9a91";
             Console.WriteLine(url);
@@ -27,10 +28,12 @@ namespace WindowsFormsApp1
             {
                 location = JsonConvert.DeserializeObject<List<root>>(response);
                 Console.WriteLine(l.Count);
-                //Weather.city c = JsonConvert.DeserializeObject<Weather.city>(response);
-                //Console.WriteLine(c.ToString());*/
-                //loc.Add(ci);
-                
+
+                url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location[0].lat + "&lon=" + location[0].lon + "&units=metric" + "&appid=ea8898ceaf85ba0d50355fd8abae9a91";
+                Console.WriteLine(url);
+                response = await client.GetStringAsync(url);
+                w = JsonConvert.DeserializeObject<root>(response);
+
                 foreach (root c in l)
                 {
                     Console.WriteLine(c);
@@ -41,32 +44,21 @@ namespace WindowsFormsApp1
         public void addToList()
         {
             if (location != null)
-                l.Add(location[0]);
+            {
+                l.Add(w);
+            }
             else
                 Console.WriteLine("ERRROR");
         }
 
-        public async void getWeather()
-        {
-            string url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location[0].lat + "&lon=" + location[0].lon + "&units=metric" + "&appid=ea8898ceaf85ba0d50355fd8abae9a91";
-            Console.WriteLine(url);
-            string response = await client.GetStringAsync(url);
-            Weather.root weather = JsonConvert.DeserializeObject<Weather.root>(response);
-            Console.WriteLine(weather.main.temp);
-            Console.WriteLine(weather.sys);
-
-        }
-
-        
-
-
-        
+  
 
         public class weather
         {
+            public string id { get; set; }  
             public string main { get; set; }
             public string description { get; set; }
-            //public string icon { get; set; }
+            public string icon { get; set; }
         }
 
         public class main
@@ -77,8 +69,7 @@ namespace WindowsFormsApp1
             public double temp_max { get; set; }
             public double pressure { get; set; }
             public double humidity { get; set; }
-            //public double sea_level { get; set; }
-            //public double grnd_level { get; set; }
+
         }
 
         public class wind
@@ -96,7 +87,6 @@ namespace WindowsFormsApp1
 
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
-            // Unix timestamp is seconds past epoch
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dateTime ;
@@ -112,7 +102,7 @@ namespace WindowsFormsApp1
             {
                 DateTime rise = UnixTimeStampToDateTime(sunrise);
                 DateTime set = UnixTimeStampToDateTime(sunset);
-                return  rise.TimeOfDay + " " + set.TimeOfDay;
+                return  $"Sunrise: {rise.TimeOfDay}\nSunset: {set.TimeOfDay}";
             }
         }
         
@@ -125,19 +115,32 @@ namespace WindowsFormsApp1
             public List<weather> weather { get; set; }
             public main main { get; set; }
             //public long visibility { get; set; }
-            //public wind wind { get; set; }
+            public wind wind { get; set; }
             public clouds clouds { get; set; }
             public long dt { get; set; }
             public sys sys { get; set; }
-            //public int timezone { get; set; }
-            //public long id { get; set; }
+            public int timezone { get; set; }
+            public long id { get; set; }
 
             //public int cod { get; set; }
 
             public override string ToString()
             {
-                return $" ";
+                return $"{name}\nDay Of Year: {UnixTimeStampToDateTime(dt).DayOfYear}\n" +
+                    $"Date: {UnixTimeStampToDateTime(dt).Date:d}\n" +
+                    $"Time: {UnixTimeStampToDateTime(dt).TimeOfDay}\n" +
+                    $"{weather[0].description}\n\n" +
+                    $"Temp: {main.temp} C\n\n" +
+                    $"Wind: {wind.speed} m/s\n\n" +
+                    $"Pressure: {main.pressure} hPa\n\n" +
+                    $"UTC {timezone/3600}\n\n" +
+                    $"{sys.ToString()}\n\n";
             }
+        }
+
+        public string wet(int nr)
+        {
+            return $"{l[nr].main.temp}";
         }
 
 

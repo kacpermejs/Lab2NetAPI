@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading;
 using Timer = System.Windows.Forms.Timer;
+using System.Drawing.Imaging;
 
 namespace WindowsFormsApp1
 {
@@ -35,8 +36,19 @@ namespace WindowsFormsApp1
         private void searchButton_Click(object sender, EventArgs e)
         {
             getWeather();
-            w.getLocation(cityNameBox.Text);
-            Console.WriteLine(cityNameBox.Text + Environment.NewLine); 
+            w.getLocationAndWeather(cityNameBox.Text);
+            Console.WriteLine(cityNameBox.Text + Environment.NewLine);
+
+
+            //Image image = Image.FromFile("C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png");
+            //this.weatherIcon.Image = image;// new Bitmap("C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png");
+           
+
+            //weatherIcon.Load();
+            //weatherIcon.Height = image.Height;
+            //weatherIcon.Width = image.Width;
+            //this.weatherIcon.Image =; //new Bitmap("/Resources/300Logo.png");
+
             //buttonGo.Enabled = true;
 
         }
@@ -80,19 +92,13 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            w.getWeather();
             cityNameBox.Clear();
-            
-
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*Timer timer = new Timer();
-            timer.Interval = (5 * 1000); // 10 secs
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();*/
+            
         }
 
         private void showWeather_TextChanged(object sender, EventArgs e)
@@ -104,6 +110,8 @@ namespace WindowsFormsApp1
         {
             w.addToList();
             showItems();
+            
+
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -131,6 +139,7 @@ namespace WindowsFormsApp1
         {
             Console.WriteLine(showCities.SelectedIndex);
             showWeatherInBox(showCities.SelectedIndex);
+            
 
         }
         void showWeatherInBox(int whichItem)
@@ -141,7 +150,15 @@ namespace WindowsFormsApp1
 
         private void label1_Click(object sender, EventArgs e)
         {
+            showWeather.Text = w.l[0].ToString();
+            this.weatherIcon.ImageLocation = "http://openweathermap.org/img/wn/" + w.l[0].weather[0].icon + "@2x.png";//"C:\\Users\\piotr\\source\\repos\\Lab2NetAPI\\Resources\\300Logo.png";
+            this.weatherIcon.Load();
+        }
+
+        private void weatherIcon_Click(object sender, EventArgs e)
+        {
 
         }
+
     }
 }
